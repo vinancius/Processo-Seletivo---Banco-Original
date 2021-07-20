@@ -5,4 +5,6 @@ public class GrafoDTO {
     private long id;
     private List<VerticeDTO> vertices;
     private List<ArestaDTO> arestas;
+
+
 }

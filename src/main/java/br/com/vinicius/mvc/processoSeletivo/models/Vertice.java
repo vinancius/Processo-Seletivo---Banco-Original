@@ -1,19 +1,23 @@
 package br.com.vinicius.mvc.processoSeletivo.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Vertice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
+    @OneToMany
     private List<Aresta> entrada;
+    @OneToMany
     private List<Aresta> saida;
+
+    public Vertice() {}
+
+    public Vertice(String nome) {
+        this.nome = nome;
+    }
 
     public long getId() {
         return id;
@@ -41,5 +45,13 @@ public class Vertice {
 
     public void setSaida(List<Aresta> saida) {
         this.saida = saida;
+    }
+
+    public void adicionarArestaEntrada(Aresta aresta) {
+        this.entrada.add(aresta);
+    }
+
+    public void adicionarArestaSaida(Aresta aresta) {
+        this.entrada.add(aresta);
     }
 }
