@@ -1,5 +1,8 @@
 package br.com.vinicius.mvc.processoSeletivo.models;
 
+import br.com.vinicius.mvc.processoSeletivo.repository.ArestaRepository;
+import br.com.vinicius.mvc.processoSeletivo.repository.VerticeRepository;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +13,10 @@ public class Grafo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToMany
+    @JoinColumn(nullable = true)
     private List<Vertice> vertices = new ArrayList<>();
     @OneToMany
+    @JoinColumn(nullable = true)
     private List<Aresta> arestas = new ArrayList<>();
 
     public long getId() {
@@ -39,28 +44,29 @@ public class Grafo {
         this.vertices.add(vertice);
     }
 
-    public void adicionarAresta(int valor, String nomeEntrada, String nomeSaida) {
-        Vertice entrada = this.getVertice(nomeEntrada);
-        Vertice saida = this.getVertice(nomeSaida);
+    public void adicionarAresta(int valor, String nomeEntrada, String nomeSaida, VerticeRepository verticeRepository,
+                                ArestaRepository arestaRepository) {
+        Vertice entrada = verticeRepository.findByNome(nomeEntrada);
+        Vertice saida = verticeRepository.findByNome(nomeSaida);
+        if(entrada == null) {
+            entrada = new Vertice(nomeEntrada);
+            verticeRepository.save(entrada);
+        }
+        if(saida == null) {
+            saida = new Vertice(nomeSaida);
+            verticeRepository.save(saida);
+        }
         Aresta aresta = new Aresta(valor,entrada,saida);
-        entrada.adicionarArestaEntrada(aresta);
+
         entrada.adicionarArestaSaida(aresta);
+        saida.adicionarArestaEntrada(aresta);
+
+        arestaRepository.save(aresta);
+
+        verticeRepository.save(entrada);
+        verticeRepository.save(saida);
+
         this.arestas.add(aresta);
     }
 
-    public Vertice getVertice(String nome) {
-        System.out.println("asuihdsiaudhdiasudhadhus");
-        Vertice vertice = null;
-        System.out.println("asuihdsiaudhdiasudhadhus");
-        for(int i = 0; i < this.vertices.size(); i++) {
-            if(this.vertices.get(i).getNome().equals(nome)) {
-                vertice = this.vertices.get(i);
-                break;
-            }
-        }
-        if(vertice == null) {
-            vertice = new Vertice(nome);
-        }
-        return vertice;
-    }
 }

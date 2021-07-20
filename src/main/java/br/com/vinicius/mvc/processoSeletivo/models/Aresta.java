@@ -1,5 +1,7 @@
 package br.com.vinicius.mvc.processoSeletivo.models;
 
+import br.com.vinicius.mvc.processoSeletivo.controller.dto.ArestaDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,9 +10,9 @@ public class Aresta {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int valor;
-    @ManyToOne
+    @OneToOne
     private Vertice inicio;
-    @ManyToOne
+    @OneToOne
     private Vertice fim;
 
     public Aresta() {}
@@ -19,6 +21,11 @@ public class Aresta {
         this.valor = valor;
         this.inicio = inicio;
         this.fim = fim;
+    }
+
+    public Aresta(ArestaDTO arestaDTO) {
+        this.valor = arestaDTO.getDistance();
+
     }
 
     public int getValor() {

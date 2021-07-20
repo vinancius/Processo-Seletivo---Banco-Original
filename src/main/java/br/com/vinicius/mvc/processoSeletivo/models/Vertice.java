@@ -1,6 +1,9 @@
 package br.com.vinicius.mvc.processoSeletivo.models;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,9 +12,11 @@ public class Vertice {
     private long id;
     private String nome;
     @OneToMany
-    private List<Aresta> entrada;
+    @Nullable
+    private List<Aresta> entrada = new ArrayList<>();;
     @OneToMany
-    private List<Aresta> saida;
+    @Nullable
+    private List<Aresta> saida =  new ArrayList<>();;
 
     public Vertice() {}
 
