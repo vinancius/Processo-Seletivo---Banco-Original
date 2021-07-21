@@ -57,10 +57,12 @@ public class Grafo {
         if(entrada == null) {
             entrada = new Vertice(nomeEntrada);
             verticeRepository.save(entrada);
+            this.vertices.add(entrada);
         }
         if(saida == null) {
             saida = new Vertice(nomeSaida);
             verticeRepository.save(saida);
+            this.vertices.add(saida);
         }
         Aresta aresta = new Aresta(valor,entrada,saida);
 
@@ -73,6 +75,10 @@ public class Grafo {
         verticeRepository.save(saida);
 
         this.arestas.add(aresta);
+    }
+
+    public void busca() {
+
     }
 
 }

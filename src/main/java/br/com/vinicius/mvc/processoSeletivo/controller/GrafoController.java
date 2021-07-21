@@ -1,7 +1,6 @@
 package br.com.vinicius.mvc.processoSeletivo.controller;
 
 import br.com.vinicius.mvc.processoSeletivo.controller.dto.ArestaDTO;
-import br.com.vinicius.mvc.processoSeletivo.controller.dto.GrafoDTO;
 import br.com.vinicius.mvc.processoSeletivo.models.Aresta;
 import br.com.vinicius.mvc.processoSeletivo.models.Grafo;
 import br.com.vinicius.mvc.processoSeletivo.repository.ArestaRepository;
@@ -9,7 +8,6 @@ import br.com.vinicius.mvc.processoSeletivo.repository.GrafoRepository;
 import br.com.vinicius.mvc.processoSeletivo.repository.VerticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 

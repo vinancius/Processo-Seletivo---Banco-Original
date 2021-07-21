@@ -32,7 +32,10 @@ public class RoutesController {
     @PostMapping("/from/{town1}/to/{town2}")
     public void listarRotasGrafo(@RequestBody ArrayList<ArestaDTO> arestas,@PathVariable String town1, @PathVariable String town2, String maxStops ) {
         if(maxStops == null) {
-
+            ArestaDTO aresta = new ArestaDTO();
+            Grafo grafo = new Grafo();
+            grafo = aresta.converterArestasEmGrafo(arestas);
+            grafo.busca();
         } else {
 
         }
