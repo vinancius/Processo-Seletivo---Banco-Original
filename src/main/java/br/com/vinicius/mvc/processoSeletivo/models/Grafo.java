@@ -13,10 +13,8 @@ public class Grafo {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @OneToMany
-    @JoinColumn(nullable = true)
     private List<Vertice> vertices = new ArrayList<>();
     @OneToMany
-    @JoinColumn(nullable = true)
     private List<Aresta> arestas = new ArrayList<>();
 
     public long getId() {

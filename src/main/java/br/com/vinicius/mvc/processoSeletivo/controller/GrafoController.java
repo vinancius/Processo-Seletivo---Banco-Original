@@ -2,6 +2,7 @@ package br.com.vinicius.mvc.processoSeletivo.controller;
 
 import br.com.vinicius.mvc.processoSeletivo.controller.dto.ArestaDTO;
 import br.com.vinicius.mvc.processoSeletivo.controller.dto.GrafoDTO;
+import br.com.vinicius.mvc.processoSeletivo.models.Aresta;
 import br.com.vinicius.mvc.processoSeletivo.models.Grafo;
 import br.com.vinicius.mvc.processoSeletivo.repository.ArestaRepository;
 import br.com.vinicius.mvc.processoSeletivo.repository.GrafoRepository;
@@ -27,16 +28,22 @@ public class GrafoController {
 
     @Autowired
     private ArestaRepository arestaRepository;
+
     @PostMapping
-    public void adicionar(@RequestBody ArrayList<ArestaDTO> arestas, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<ArrayList<ArestaDTO>> adicionar(@RequestBody ArrayList<ArestaDTO> arestas, UriComponentsBuilder uriBuilder) {
         Grafo grafo = new Grafo();
         for (ArestaDTO aresta: arestas
         ) {
             grafo.adicionarAresta(aresta.getDistance(),aresta.getSource(),aresta.getTarget(),verticeRepository, arestaRepository);
         }
         grafoRepository.save(grafo);
-        //URI uri = uriBuilder.path("/graph/{id}").buildAndExpand(grafo.getId()).toUri();
-        //return ResponseEntity.created(uri)
+        URI uri = uriBuilder.path("/graph/{id}").buildAndExpand(grafo.getId()).toUri();
+        ArrayList<ArestaDTO> arestasDTO= new ArrayList<ArestaDTO>();
+        for (Aresta aresta: grafo.getArestas()) {
+            ArestaDTO arestaDTO = new ArestaDTO(aresta.getValor(),aresta.getInicio().getNome(),aresta.getFim().getNome());
+            arestasDTO.add(arestaDTO);
+        }
+        return ResponseEntity.created(uri).body(arestasDTO);
     }
 
     /**@GetMapping("/{id}")

@@ -12,10 +12,8 @@ public class Vertice {
     private long id;
     private String nome;
     @OneToMany
-    @Nullable
     private List<Aresta> entrada = new ArrayList<>();;
     @OneToMany
-    @Nullable
     private List<Aresta> saida =  new ArrayList<>();;
 
     public Vertice() {}
@@ -57,6 +55,6 @@ public class Vertice {
     }
 
     public void adicionarArestaSaida(Aresta aresta) {
-        this.entrada.add(aresta);
+        this.saida.add(aresta);
     }
 }
