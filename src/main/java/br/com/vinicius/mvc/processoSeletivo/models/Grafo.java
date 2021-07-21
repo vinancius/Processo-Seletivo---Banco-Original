@@ -17,6 +17,14 @@ public class Grafo {
     @OneToMany
     private List<Aresta> arestas = new ArrayList<>();
 
+    public Grafo() {
+    }
+
+    public Grafo(List<Vertice> vertices, List<Aresta> arestas) {
+        this.vertices = vertices;
+        this.arestas = arestas;
+    }
+
     public long getId() {
         return id;
     }
