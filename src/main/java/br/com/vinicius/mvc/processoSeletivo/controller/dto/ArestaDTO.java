@@ -1,11 +1,5 @@
 package br.com.vinicius.mvc.processoSeletivo.controller.dto;
 
-import br.com.vinicius.mvc.processoSeletivo.models.Aresta;
-import br.com.vinicius.mvc.processoSeletivo.models.Vertice;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class ArestaDTO {
     private int distance;
     private String source;

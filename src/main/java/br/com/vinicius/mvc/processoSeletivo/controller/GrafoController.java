@@ -9,12 +9,13 @@ import br.com.vinicius.mvc.processoSeletivo.repository.GrafoRepository;
 import br.com.vinicius.mvc.processoSeletivo.repository.VerticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/graph")
@@ -46,9 +47,18 @@ public class GrafoController {
         return ResponseEntity.created(uri).body(arestasDTO);
     }
 
-    /**@GetMapping("/{id}")
-    public GrafoDTO listarGrafo(@PathVariable long id) {
-
-    } **/
+    @GetMapping("/{id}")
+    public ResponseEntity<ArrayList<ArestaDTO>> listarGrafo(@PathVariable long id) {
+        Optional<Grafo> grafo = grafoRepository.findById(id);
+        if(grafo.isPresent()) {
+            ArrayList<ArestaDTO> arestasDTO= new ArrayList<ArestaDTO>();
+            for (Aresta aresta: grafo.get().getArestas()) {
+                ArestaDTO arestaDTO = new ArestaDTO(aresta.getValor(),aresta.getInicio().getNome(),aresta.getFim().getNome());
+                arestasDTO.add(arestaDTO);
+            }
+            return ResponseEntity.ok(arestasDTO);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
