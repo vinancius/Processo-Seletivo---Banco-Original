@@ -19,7 +19,7 @@
 - HTTP Success Response Code: CREATED (201)
 
 ### List Graph
-- Endpoint: /graph/<graphId>
+- Endpoint: /graph/`<graphId>`
 - HTTP Method: GET
 - HTTP Success Response Code: OK (200)
 - HTTP Error Response Code: NOT FOUND (404)
