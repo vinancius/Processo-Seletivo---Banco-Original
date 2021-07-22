@@ -77,8 +77,4 @@ public class Grafo {
         this.arestas.add(aresta);
     }
 
-    public void busca() {
-
-    }
-
 }
